@@ -95,14 +95,32 @@ class MouthLeft{
       // First determine which switch case based no the Emotions enum
       switch(inputEmotion){
         case Emotions::Idle:
+
+          // Future Refactoring: Figure out how to loop between each array pointer in the array of displays below
+
           // for(uint8_t a = partFirstDeviceIndex; a < (partFirstDeviceIndex + partMaxDevices); a++){
           //   // need something to properly set each of these cases for the different displays
-          //   mx.setBuffer(((a + 1)*COL_SIZE)-1, COL_SIZE, IdleDisplayArray[a - partFirstDeviceIndex]);
+            // mx.setBuffer(((a + 1)*COL_SIZE)-1, COL_SIZE, &IdleDisplayArray[a - partFirstDeviceIndex]);
           // }
+
+          // Array Address Test
+          // uint8_t *testPtr = &IdleDisplayOne[0];
+          // int aArray[] = {10,20,30};
+          // int *aPtr = &aArray[0];
+          // Serial.print(&IdleDisplayOne[0]);
+          // Serial.print(testPtr);
+          // Serial.println((uint8_t)&IdleDisplayOne);
+          // Serial.println((uint8_t)&IdleDisplayTwo);
+          // Serial.println((uint8_t)&IdleDisplayThree);
+          // Serial.println((uint8_t)&IdleDisplayFour);
+          // Serial.println(IdleDisplayArray[0]);
+          // Serial.println(IdleDisplayArray[0][0]);
+
           mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
           mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
           mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
           mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
+
           break;
         case Emotions::Happy:
           break;
@@ -126,7 +144,7 @@ class MouthLeft{
     0b00011000,
     0b00011000
   };
-
+  
   uint8_t IdleDisplayTwo[COL_SIZE] =
   {
     0b00001000,
@@ -169,7 +187,8 @@ class MouthLeft{
   constexpr static uint8_t partMaxDevices = 4; // These members are static since there will be one instance (and therefore one value for each member) instantiated anyways
   constexpr static uint8_t partFirstDeviceIndex = 0; // This value will be changed later once I figure out where each part's first device index is
   // Display Arrays
-  // uint8_t IdleDisplayArray[COL_SIZE][partMaxDevices]{IdleDisplayOne, IdleDisplayTwo, IdleDisplayThree, IdleDisplayFour}; <--- Figure issue with referencing this array
+  // uint8_t IdleDisplayArray[partMaxDevices]{IdleDisplayOne, IdleDisplayTwo, IdleDisplayThree, IdleDisplayFour};
+  // uint8_t IdleDisplayArray[partMaxDevices]{(uint8_t)&IdleDisplayOne, (uint8_t)&IdleDisplayTwo, (uint8_t)&IdleDisplayThree, (uint8_t)&IdleDisplayFour};
 };
 class MouthMiddle{
   void updateMouthMiddleDisplay(){
