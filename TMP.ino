@@ -34,7 +34,7 @@
 // Device Definitions
 #define HARDWARE_TYPE MD_MAX72XX::PAROLA_HW
 #define MAX_DEVICES 4
-#define DELAYTIME 100 // time between display updates
+#define DELAYTIME 1000 // time between display updates
 
 //SPI Hardware Interface
 
@@ -79,14 +79,150 @@ enum class Emotions
 
 
 class EyeLeft{
-  void updateEyeLeftDisplay(){
-
+  public: 
+  
+  void updateEyeLeftDisplay(Emotions inputEmotion){
+    switch(inputEmotion){
+        case Emotions::Idle:
+          mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
+          mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
+          break;
+        case Emotions::Happy:
+          mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, HappyDisplayOne);
+          mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, HappyDisplayTwo);
+          break;
+        case Emotions::Sad:
+          break;
+        case Emotions::Angry:
+          break;
+    }
   }
+
+  private:
+
+  // Idle Displays
+
+  uint8_t IdleDisplayOne[COL_SIZE] = 
+  {
+    0b00000000,
+    0b00000000,
+    0b00000001,
+    0b00000011,
+    0b00000110,
+    0b00111100,
+    0b01111110,
+    0b01111110
+  };
+
+  uint8_t IdleDisplayTwo[COL_SIZE] = 
+  {
+    0b01111110,
+    0b01111110,
+    0b00111100,
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00000000
+  };
+
+  // Happy Displays
+
+  uint8_t HappyDisplayOne[COL_SIZE] = 
+  {
+    0b00110000,
+    0b00011000,
+    0b00011000,
+    0b00001100,
+    0b00001100,
+    0b00001110,
+    0b00001110,
+    0b00001110
+  };
+
+  uint8_t HappyDisplayTwo[COL_SIZE] = 
+  {
+    0b00001111,
+    0b00001111,
+    0b00001111,
+    0b00011111,
+    0b00111110,
+    0b00111110,
+    0b00111100,
+    0b00011000
+  };
+
+  constexpr static uint8_t partMaxDevices = 2; 
+  constexpr static uint8_t partFirstDeviceIndex = 0; 
+
 };
 class EyeRight{
-    void updateEyeRightDisplay(){
-
+  public:
+    void updateEyeRightDisplay(Emotions inputEmotion){
+      switch(inputEmotion){
+        case Emotions::Idle:
+          mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
+          mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
+          break;
+        case Emotions::Happy:
+          mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, HappyDisplayOne);
+          mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, HappyDisplayTwo);
+          break;
+        case Emotions::Sad:
+          break;
+        case Emotions::Angry:
+          break;
+      }
     }
+  private:
+    uint8_t IdleDisplayOne[COL_SIZE] = 
+    {
+      0b00000000,
+      0b00000000,
+      0b00000000,
+      0b00000000,
+      0b00000000,
+      0b00111100,
+      0b01111110,
+      0b01111110,
+    };
+    uint8_t IdleDisplayTwo[COL_SIZE] = 
+    {
+      0b01111110,
+      0b01111110,
+      0b00111100,
+      0b00000110,
+      0b00000011,
+      0b00000001,
+      0b00000000,
+      0b00000000
+    };
+    
+    uint8_t HappyDisplayOne[COL_SIZE] = 
+    {
+      0b00011000,
+      0b00111100,
+      0b00111110,
+      0b00111110,
+      0b00011111,
+      0b00001111,
+      0b00001111,
+      0b00001111
+    };
+
+    uint8_t HappyDisplayTwo[COL_SIZE] = 
+    {
+      0b00001110,
+      0b00001110,
+      0b00001110,
+      0b00001100,
+      0b00001100,
+      0b00011000,
+      0b00011000,
+      0b00110000
+    };
+  constexpr static uint8_t partMaxDevices = 2; 
+  constexpr static uint8_t partFirstDeviceIndex = 2; 
 };
 class MouthLeft{
   public:
@@ -100,7 +236,7 @@ class MouthLeft{
 
           // for(uint8_t a = partFirstDeviceIndex; a < (partFirstDeviceIndex + partMaxDevices); a++){
           //   // need something to properly set each of these cases for the different displays
-            // mx.setBuffer(((a + 1)*COL_SIZE)-1, COL_SIZE, &IdleDisplayArray[a - partFirstDeviceIndex]);
+          //   mx.setBuffer(((a + 1)*COL_SIZE)-1, COL_SIZE, IdleDisplayArray[a - partFirstDeviceIndex]);
           // }
 
           // Array Address Test
@@ -187,8 +323,8 @@ class MouthLeft{
   constexpr static uint8_t partMaxDevices = 4; // These members are static since there will be one instance (and therefore one value for each member) instantiated anyways
   constexpr static uint8_t partFirstDeviceIndex = 0; // This value will be changed later once I figure out where each part's first device index is
   // Display Arrays
-  // uint8_t IdleDisplayArray[partMaxDevices]{IdleDisplayOne, IdleDisplayTwo, IdleDisplayThree, IdleDisplayFour};
-  // uint8_t IdleDisplayArray[partMaxDevices]{(uint8_t)&IdleDisplayOne, (uint8_t)&IdleDisplayTwo, (uint8_t)&IdleDisplayThree, (uint8_t)&IdleDisplayFour};
+  // uint8_t IdleDisplayArray[partMaxDevices] = {IdleDisplayOne, IdleDisplayTwo, IdleDisplayThree, IdleDisplayFour};
+  // uint8_t IdleDisplayArray[partMaxDevices]= {(uint8_t)&IdleDisplayOne, (uint8_t)&IdleDisplayTwo, (uint8_t)&IdleDisplayThree, (uint8_t)&IdleDisplayFour};
 };
 class MouthMiddle{
   void updateMouthMiddleDisplay(){
@@ -196,9 +332,77 @@ class MouthMiddle{
   }
 };
 class MouthRight{
-  void updateMouthRightDisplay(){
+  public:
 
+  void updateMouthRightDisplay(Emotions inputEmotion){
+    switch(inputEmotion){
+      case Emotions::Idle:
+
+        mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
+        mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
+        mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
+        mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
+
+        break;
+      case Emotions::Happy:
+        break;
+      case Emotions::Sad:
+        break;
+      case Emotions::Angry:
+        break;
+    }
   }
+
+  private:
+
+  uint8_t IdleDisplayOne[COL_SIZE] = 
+  {
+    0b11000000,
+    0b01100000,
+    0b01100000,
+    0b00110000,
+    0b00110000,
+    0b00011000,
+    0b00011000,
+    0b00011000
+  };
+  uint8_t IdleDisplayTwo[COL_SIZE] = 
+  {
+    0b00010000,
+    0b00110000,
+    0b00110000,
+    0b01100000,
+    0b01100000,
+    0b11000000,
+    0b11000000,
+    0b10000000
+  };
+  uint8_t IdleDisplayThree[COL_SIZE] = 
+  {
+    0b10000000,
+    0b11000000,
+    0b11000000,
+    0b01100000,
+    0b01100000,
+    0b00110000,
+    0b00110000,
+    0b00011000,
+  };
+  uint8_t IdleDisplayFour[COL_SIZE] = 
+  {
+    0b00011000,
+    0b00011100,
+    0b00011100,
+    0b00010110,
+    0b00010110,
+    0b00010011,
+    0b00011110,
+    0b00011100,
+  };
+  // Other Private Variables:
+  constexpr static uint8_t partMaxDevices = 4;
+  constexpr static uint8_t partFirstDeviceIndex = 0;
+
 };
 class NoseLeft{
   void updateNoseLeftDisplay(){
@@ -210,16 +414,6 @@ class NoseRight{
     
   }
 };
-
-// Define part object instances:
-
-  // EyeLeft protoEyeLeft;
-  // EyeRight protoEyeRight;
-  // MouthLeft protoMouthLeft;
-  // MouthMiddle protoMouthMiddle;
-  // MouthRight protoMouthRight;
-  // NoseLeft protoNoseLeft;
-  // NoseRight protoNoseRight;
 
 //  Main class that holds all the composed objects
 
@@ -244,8 +438,11 @@ class Head {
       // Then, update emotions on each part of the head
       mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
       // Eyes
+      HeadEyeLeft.updateEyeLeftDisplay(currentEmote);
+      HeadEyeRight.updateEyeRightDisplay(currentEmote);
       // Mouth
-      HeadMouthLeft.updateMouthLeftDisplay(currentEmote);
+      // HeadMouthLeft.updateMouthLeftDisplay(currentEmote);
+      // HeadMouthRight.updateMouthRightDisplay(currentEmote);
       // Nose
       mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
       delay(DELAYTIME);
@@ -262,8 +459,8 @@ class Head {
   private: 
     Emotions HeadEmotion = Emotions::Idle;
     // Parts of the head
-    // EyeLeft HeadEyeLeft; <--- Do This Later
-    // EyeRight HeadEyeRight; <--- Do This Later
+    EyeLeft HeadEyeLeft;
+    EyeRight HeadEyeRight;
     MouthLeft HeadMouthLeft;
     MouthMiddle HeadMouthMiddle;
     MouthRight HeadMouthRight;
@@ -314,7 +511,7 @@ delay(DELAYTIME);
 
   mx.clear();
 
-  protogenHead.setHeadEmotion(Emotions::Idle);
+  protogenHead.setHeadEmotion(Emotions::Happy);
   protogenHead.updateHeadDisplay();
 }
 
