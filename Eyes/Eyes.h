@@ -39,6 +39,17 @@ class EyeLeft{
 
   // Happy Displays
 
+  // uint8_t HappyDisplayOne[COL_SIZE] = 
+  // {
+  //   0b00110000,
+  //   0b00011000,
+  //   0b00011000,
+  //   0b00001100,
+  //   0b00001100,
+  //   0b00001110,
+  //   0b00001110,
+  //   0b00001110
+  // };
   uint8_t HappyDisplayOne[COL_SIZE] = 
   {
     0b00110000,
@@ -46,10 +57,14 @@ class EyeLeft{
     0b00011000,
     0b00001100,
     0b00001100,
-    0b00001110,
-    0b00001110,
-    0b00001110
+    0b00001111, // Currently
+    0b00001111, // Testing
+    0b00001111 // Why this isn't showing up
   };
+
+/*
+   Figure out why HappyDisplayOne isn't displaying properly on the matrix
+*/
 
   uint8_t HappyDisplayTwo[COL_SIZE] = 
   {
@@ -63,6 +78,18 @@ class EyeLeft{
     0b00011000
   };
 
+
+//   uint8_t HappyDisplayTwo[COL_SIZE] = 
+//   {
+//     0b00001111,
+//     0b00001111,
+//     0b00001111,
+//     0b00011111,
+//     0b00111110,
+//     0b00111110,
+//     0b00111100,
+//     0b00011000
+//   };
   // Sad Display
 
   uint8_t SadDisplayOne[COL_SIZE] = 
