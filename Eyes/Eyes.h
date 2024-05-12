@@ -7,7 +7,7 @@
 class EyeLeft{
   public: 
   
-    void updateEyeLeftDisplay(MD_MAX72XX mxSPI, int inputInt);
+    void updateEyeLeftDisplay(MD_MAX72XX &mxSPI, int inputInt);
 
   private:
 
@@ -39,57 +39,28 @@ class EyeLeft{
 
   // Happy Displays
 
-  // uint8_t HappyDisplayOne[COL_SIZE] = 
-  // {
-  //   0b00110000,
-  //   0b00011000,
-  //   0b00011000,
-  //   0b00001100,
-  //   0b00001100,
-  //   0b00001110,
-  //   0b00001110,
-  //   0b00001110
-  // };
   uint8_t HappyDisplayOne[COL_SIZE] = 
   {
-    0b00110000,
-    0b00011000,
-    0b00011000,
-    0b00001100,
-    0b00001100,
-    0b00001111, // Currently
-    0b00001111, // Testing
-    0b00001111 // Why this isn't showing up
+      0b00001110,
+      0b00001110,
+      0b00001110,
+      0b00001100,
+      0b00001100,
+      0b00011000,
+      0b00011000,
+      0b00110000
   };
-
-/*
-   Figure out why HappyDisplayOne isn't displaying properly on the matrix
-*/
-
   uint8_t HappyDisplayTwo[COL_SIZE] = 
-  {
-    0b00001111,
-    0b00001111,
-    0b00001111,
-    0b00011111,
-    0b00111110,
-    0b00111110,
-    0b00111100,
-    0b00011000
-  };
-
-
-//   uint8_t HappyDisplayTwo[COL_SIZE] = 
-//   {
-//     0b00001111,
-//     0b00001111,
-//     0b00001111,
-//     0b00011111,
-//     0b00111110,
-//     0b00111110,
-//     0b00111100,
-//     0b00011000
-//   };
+    {
+      0b00011000,
+      0b00111100,
+      0b00111110,
+      0b00111110,
+      0b00011111,
+      0b00001111,
+      0b00001111,
+      0b00001111
+    };
   // Sad Display
 
   uint8_t SadDisplayOne[COL_SIZE] = 
@@ -122,7 +93,7 @@ class EyeLeft{
 
 class EyeRight{
   public:
-    void updateEyeRightDisplay(MD_MAX72XX mxSPI, int inputInt);
+    void updateEyeRightDisplay(MD_MAX72XX &mxSPI, int inputInt);
   private:
     uint8_t IdleDisplayOne[COL_SIZE] = 
     {
@@ -148,27 +119,47 @@ class EyeRight{
     };
     
     uint8_t HappyDisplayOne[COL_SIZE] = 
+    // {
+    //   0b00011000,
+    //   0b00111100,
+    //   0b00111110,
+    //   0b00111110,
+    //   0b00011111,
+    //   0b00001111,
+    //   0b00001111,
+    //   0b00001111
+    // };
     {
-      0b00011000,
-      0b00111100,
-      0b00111110,
-      0b00111110,
+      0b00001111,
+      0b00001111,
+      0b00001111,
       0b00011111,
-      0b00001111,
-      0b00001111,
-      0b00001111
+      0b00111110,
+      0b00111110,
+      0b00111100,
+      0b00011000,
     };
 
     uint8_t HappyDisplayTwo[COL_SIZE] = 
+    // {
+    //   0b00001110,
+    //   0b00001110,
+    //   0b00001110,
+    //   0b00001100,
+    //   0b00001100,
+    //   0b00011000,
+    //   0b00011000,
+    //   0b00110000
+    // };
     {
-      0b00001110,
-      0b00001110,
-      0b00001110,
-      0b00001100,
-      0b00001100,
-      0b00011000,
-      0b00011000,
-      0b00110000
+    0b00110000,
+    0b00011000,
+    0b00011000,
+    0b00001100,
+    0b00001100,
+    0b00001110,
+    0b00001110, 
+    0b00001110 
     };
 
   uint8_t SadDisplayOne[COL_SIZE] = 

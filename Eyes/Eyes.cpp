@@ -1,7 +1,7 @@
 // #include "Arduino.h"
 #include "Eyes.h"
 
-void EyeLeft::updateEyeLeftDisplay(MD_MAX72XX mxSPI, int inputInt){
+void EyeLeft::updateEyeLeftDisplay(MD_MAX72XX &mxSPI, int inputInt){ // Passing the `mx` object by reference so it doesn't get copied
     switch(inputInt){
         case 0: // Idle Display
           mxSPI.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
@@ -20,7 +20,7 @@ void EyeLeft::updateEyeLeftDisplay(MD_MAX72XX mxSPI, int inputInt){
     }
 }
 
-void EyeRight::updateEyeRightDisplay(MD_MAX72XX mxSPI, int inputInt){
+void EyeRight::updateEyeRightDisplay(MD_MAX72XX &mxSPI, int inputInt){
     switch(inputInt){
         case 0: // Idle Display
           mxSPI.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
