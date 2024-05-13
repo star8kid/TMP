@@ -1,9 +1,7 @@
 #include "Arduino.h"
 #include "Mouth.h"
 
-// Note: Change the "magic numbers" in each setBuffer call to utilize class defintions of first Matrix index (do this for Eyes and Nose too)
-
-void MouthLeft::updateMouthLeftDisplay(MD_MAX72XX mxSPI, int inputInt){
+void MouthLeft::updateMouthLeftDisplay(MD_MAX72XX &mxSPI, int inputInt){
       // First determine which switch case based no the Emotions enum
       switch(inputInt){
         case 0:
@@ -33,10 +31,10 @@ void MouthLeft::updateMouthLeftDisplay(MD_MAX72XX mxSPI, int inputInt){
           // mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
           // mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
 
-          mxSPI.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
-          mxSPI.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
-          mxSPI.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
-          mxSPI.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
 
           break;
         case 1:
@@ -46,4 +44,25 @@ void MouthLeft::updateMouthLeftDisplay(MD_MAX72XX mxSPI, int inputInt){
         case 3:
           break;
       }
+}
+
+void::MouthMiddle::updateMouthMiddleDisplay(MD_MAX72XX &mxSPI, int inputInt){
+
+}
+
+void::MouthRight::updateMouthRightDisplay(MD_MAX72XX &mxSPI, int inputInt){
+  switch(inputInt){
+    case 0:
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
+          mxSPI.setBuffer(((this->partFirstDeviceIndex + 4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
+      break;
+    case 1:
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+  }
 }
