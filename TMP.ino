@@ -1,6 +1,6 @@
 #include <MD_MAX72xx.h>
-// #include <Eyes.h>
-
+#include <Eyes.h>
+#include <Mouth.h>
 
 // Turn on debug statements to the serial output
 #define  DEBUG  1
@@ -34,7 +34,7 @@
 #define CS_PIN    10  // or SS
 
 // Device Definitions
-#define HARDWARE_TYPE MD_MAX72XX::PAROLA_HW
+#define HARDWARE_TYPE MD_MAX72XX::FC16_HW 
 #define MAX_DEVICES 4
 #define DELAYTIME 1000 // time between display updates
 
@@ -51,370 +51,10 @@ MD_MAX72XX mx = MD_MAX72XX(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
 // Idea List:
  // Make an Emotions Enum for each of the parts of the face (or possibly do this for animations/)
 
-
-
-
-
-
-
-// Some Important Public Variables for all classes
-
-
-
-
-
-
-
-
 // Each Head Part class needs:
 // - Access to the instance of "mx" (Already done because "mx" is global)
 // - Data storing the number of devices it's in control of
 // - Data storing the first device index it's in control of (compared to all the devices in MAX_DEVICES)
-// 
-
-
-
-// class EyeLeft{
-//   public: 
-//   void updateEyeLeftDisplay(int inputEmotion){
-//     switch(inputEmotion){
-//         case 0:
-//           mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
-//           mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
-//           break;
-//         case 1:
-//           mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, HappyDisplayOne);
-//           mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, HappyDisplayTwo);
-//           break;
-//         case 2:
-//           break;
-//         case 3:
-//           break;
-//     }
-//   }
-
-//   private:
-
-//   // Idle Displays
-
-//   uint8_t IdleDisplayOne[COL_SIZE] = 
-//   {
-//     0b00000000,
-//     0b00000000,
-//     0b00000001,
-//     0b00000011,
-//     0b00000110,
-//     0b00111100,
-//     0b01111110,
-//     0b01111110
-//   };
-
-//   uint8_t IdleDisplayTwo[COL_SIZE] = 
-//   {
-//     0b01111110,
-//     0b01111110,
-//     0b00111100,
-//     0b00000000,
-//     0b00000000,
-//     0b00000000,
-//     0b00000000,
-//     0b00000000
-//   };
-
-//   // Happy Displays
-
-//   uint8_t HappyDisplayOne[COL_SIZE] = 
-//   {
-//     0b00110000,
-//     0b00011000,
-//     0b00011000,
-//     0b00001100,
-//     0b00001100,
-//     0b00001110,
-//     0b00001110,
-//     0b00001110
-//   };
-
-//   uint8_t HappyDisplayTwo[COL_SIZE] = 
-//   {
-//     0b00001111,
-//     0b00001111,
-//     0b00001111,
-//     0b00011111,
-//     0b00111110,
-//     0b00111110,
-//     0b00111100,
-//     0b00011000
-//   };
-
-//   constexpr static uint8_t partMaxDevices = 2; 
-//   constexpr static uint8_t partFirstDeviceIndex = 0; 
-
-// };
-
-// class EyeRight{
-//   public:
-//     void updateEyeRightDisplay(int inputEmotion){
-//       switch(inputEmotion){
-//         case 0:
-//           mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
-//           mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
-//           break;
-//         case 1:
-//           mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, HappyDisplayOne);
-//           mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, HappyDisplayTwo);
-//           break;
-//         case 2:
-//           break;
-//         case 3:
-//           break;
-//       }
-//     }
-//   private:
-//     uint8_t IdleDisplayOne[COL_SIZE] = 
-//     {
-//       0b00000000,
-//       0b00000000,
-//       0b00000000,
-//       0b00000000,
-//       0b00000000,
-//       0b00111100,
-//       0b01111110,
-//       0b01111110,
-//     };
-//     uint8_t IdleDisplayTwo[COL_SIZE] = 
-//     {
-//       0b01111110,
-//       0b01111110,
-//       0b00111100,
-//       0b00000110,
-//       0b00000011,
-//       0b00000001,
-//       0b00000000,
-//       0b00000000
-//     };
-    
-//     uint8_t HappyDisplayOne[COL_SIZE] = 
-//     {
-//       0b00011000,
-//       0b00111100,
-//       0b00111110,
-//       0b00111110,
-//       0b00011111,
-//       0b00001111,
-//       0b00001111,
-//       0b00001111
-//     };
-
-//     uint8_t HappyDisplayTwo[COL_SIZE] = 
-//     {
-//       0b00001110,
-//       0b00001110,
-//       0b00001110,
-//       0b00001100,
-//       0b00001100,
-//       0b00011000,
-//       0b00011000,
-//       0b00110000
-//     };
-//   constexpr static uint8_t partMaxDevices = 2; 
-//   constexpr static uint8_t partFirstDeviceIndex = 2; 
-// };
-
-// class MouthLeft{
-//   public:
-
-//     void updateMouthLeftDisplay(Emotions inputEmotion){
-//       // First determine which switch case based no the Emotions enum
-//       switch(inputEmotion){
-//         case Emotions::Idle:
-
-//           // Future Refactoring: Figure out how to loop between each array pointer in the array of displays below
-
-//           // for(uint8_t a = partFirstDeviceIndex; a < (partFirstDeviceIndex + partMaxDevices); a++){
-//           //   // need something to properly set each of these cases for the different displays
-//           //   mx.setBuffer(((a + 1)*COL_SIZE)-1, COL_SIZE, IdleDisplayArray[a - partFirstDeviceIndex]);
-//           // }
-
-//           // Array Address Test
-//           // uint8_t *testPtr = &IdleDisplayOne[0];
-//           // int aArray[] = {10,20,30};
-//           // int *aPtr = &aArray[0];
-//           // Serial.print(&IdleDisplayOne[0]);
-//           // Serial.print(testPtr);
-//           // Serial.println((uint8_t)&IdleDisplayOne);
-//           // Serial.println((uint8_t)&IdleDisplayTwo);
-//           // Serial.println((uint8_t)&IdleDisplayThree);
-//           // Serial.println((uint8_t)&IdleDisplayFour);
-//           // Serial.println(IdleDisplayArray[0]);
-//           // Serial.println(IdleDisplayArray[0][0]);
-
-//           mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
-//           mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
-//           mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
-//           mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
-
-//           break;
-//         case Emotions::Happy:
-//           break;
-//         case Emotions::Sad:
-//           break;
-//         case Emotions::Angry:
-//           break;
-//       }
-//     }
-
-//   private:
-  
-//   uint8_t IdleDisplayOne[COL_SIZE] = 
-//   {
-//     0b00000011,
-//     0b00000110,
-//     0b00000110,
-//     0b00001100,
-//     0b00001100,
-//     0b00011000,
-//     0b00011000,
-//     0b00011000
-//   };
-  
-//   uint8_t IdleDisplayTwo[COL_SIZE] =
-//   {
-//     0b00001000,
-//     0b00001100,
-//     0b00001100,
-//     0b00000110,
-//     0b00000110,
-//     0b00000011,
-//     0b00000011,
-//     0b00000001
-//   };
-
-//   uint8_t IdleDisplayThree[COL_SIZE] =
-//   {
-//     0b00000001,
-//     0b00000011,
-//     0b00000011,
-//     0b00000110,
-//     0b00000110,
-//     0b00001100,
-//     0b00001100,
-//     0b00011000
-//   };
-
-//   uint8_t IdleDisplayFour[COL_SIZE] =
-//   {
-//     0b00011000,
-//     0b00111000,
-//     0b00111000,
-//     0b01101000,
-//     0b01101000,
-//     0b11001000,
-//     0b01111000,
-//     0b00111000
- 
-//   };
-
-
-//   // Other Private Variables:
-//   constexpr static uint8_t partMaxDevices = 4; // These members are static since there will be one instance (and therefore one value for each member) instantiated anyways
-//   constexpr static uint8_t partFirstDeviceIndex = 0; // This value will be changed later once I figure out where each part's first device index is
-//   // Display Arrays
-//   // uint8_t IdleDisplayArray[partMaxDevices] = {IdleDisplayOne, IdleDisplayTwo, IdleDisplayThree, IdleDisplayFour};
-//   // uint8_t IdleDisplayArray[partMaxDevices]= {(uint8_t)&IdleDisplayOne, (uint8_t)&IdleDisplayTwo, (uint8_t)&IdleDisplayThree, (uint8_t)&IdleDisplayFour};
-// };
-
-class MouthMiddle{
-  void updateMouthMiddleDisplay(){
-
-  }
-};
-
-// class MouthRight{
-//   public:
-
-//   void updateMouthRightDisplay(Emotions inputEmotion){
-//     switch(inputEmotion){
-//       case Emotions::Idle:
-
-//         mx.setBuffer(((1)*COL_SIZE)-1, COL_SIZE, IdleDisplayOne);
-//         mx.setBuffer(((2)*COL_SIZE)-1, COL_SIZE, IdleDisplayTwo);
-//         mx.setBuffer(((3)*COL_SIZE)-1, COL_SIZE, IdleDisplayThree);
-//         mx.setBuffer(((4)*COL_SIZE)-1, COL_SIZE, IdleDisplayFour);
-
-//         break;
-//       case Emotions::Happy:
-//         break;
-//       case Emotions::Sad:
-//         break;
-//       case Emotions::Angry:
-//         break;
-//     }
-//   }
-
-//   private:
-
-//   uint8_t IdleDisplayOne[COL_SIZE] = 
-//   {
-//     0b11000000,
-//     0b01100000,
-//     0b01100000,
-//     0b00110000,
-//     0b00110000,
-//     0b00011000,
-//     0b00011000,
-//     0b00011000
-//   };
-//   uint8_t IdleDisplayTwo[COL_SIZE] = 
-//   {
-//     0b00010000,
-//     0b00110000,
-//     0b00110000,
-//     0b01100000,
-//     0b01100000,
-//     0b11000000,
-//     0b11000000,
-//     0b10000000
-//   };
-//   uint8_t IdleDisplayThree[COL_SIZE] = 
-//   {
-//     0b10000000,
-//     0b11000000,
-//     0b11000000,
-//     0b01100000,
-//     0b01100000,
-//     0b00110000,
-//     0b00110000,
-//     0b00011000,
-//   };
-//   uint8_t IdleDisplayFour[COL_SIZE] = 
-//   {
-//     0b00011000,
-//     0b00011100,
-//     0b00011100,
-//     0b00010110,
-//     0b00010110,
-//     0b00010011,
-//     0b00011110,
-//     0b00011100,
-//   };
-//   // Other Private Variables:
-//   constexpr static uint8_t partMaxDevices = 4;
-//   constexpr static uint8_t partFirstDeviceIndex = 0;
-
-// };
-
-
-class NoseLeft{
-  void updateNoseLeftDisplay(){
-
-  }
-};
-class NoseRight{
-  void updateNoseRightDisplay(){
-    
-  }
-};
 
 //  Main class that holds all the composed objects
 
@@ -448,14 +88,13 @@ class Head {
 
       // The static_cast's are neccessary here because they provide a way for the `update` functions of each body part to have an input based on Enumerated States, while still be separated in implementation      
       // Eyes
-      // HeadEyeLeft.updateEyeLeftDisplay(mx, static_cast<int>(currentEmote)); 
-      // HeadEyeRight.updateEyeRightDisplay(mx, static_cast<int>(currentEmote));
+      HeadEyeLeft.updateEyeLeftDisplay(mx, static_cast<int>(currentEmote)); 
+      HeadEyeRight.updateEyeRightDisplay(mx, static_cast<int>(currentEmote));
       // Mouth
-      // HeadMouthLeft.updateMouthLeftDisplay(currentEmote);
-      // HeadMouthRight.updateMouthRightDisplay(currentEmote);
+      // HeadMouthLeft.updateMouthLeftDisplay(mx, static_cast<int>(currentEmote));
+      // HeadMouthRight.updateMouthRightDisplay(mx, static_cast<int>(currentEmote));
       // Nose
       mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
-      delay(DELAYTIME);
       // Display each bitmap on each 8x8 matrix of each part of the face
     }
 
@@ -469,11 +108,14 @@ class Head {
 
     Emotions HeadEmotion {Emotions::Idle};
     // Parts of the head
+    //Eyes
     EyeLeft HeadEyeLeft;
-    // EyeRight HeadEyeRight;
+    EyeRight HeadEyeRight;
+    //Mouth
     // MouthLeft HeadMouthLeft;
     // MouthMiddle HeadMouthMiddle;
     // MouthRight HeadMouthRight;
+    // Nose
     // NoseLeft HeadNoseLeft; <--- Do This Later
     // NoseRight HeadNoseRight; <--- Do This Later
 };
@@ -521,14 +163,11 @@ delay(DELAYTIME);
 
   mx.clear();
 
-  protogenHead.setHeadEmotion(Head::Emotions::Happy);
+  protogenHead.setHeadEmotion(Head::Emotions::Idle);
   protogenHead.updateHeadDisplay();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  // scrollText("The Mint Project"); 
-  // a good exercise would be to figure out how to make this not run backwards
-  delay(DELAYTIME);
 }
 
