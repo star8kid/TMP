@@ -2,6 +2,10 @@
 #include <Eyes.h>
 #include <Mouth.h>
 
+#include <Animation.h>
+#include <WinkAnimation.h>
+
+
 // Turn on debug statements to the serial output
 #define  DEBUG  1
 
@@ -82,18 +86,23 @@ class Head {
     void updateHeadDisplay(){
       // Check emotion type first
       Emotions currentEmote = getHeadEmotion();
-      
-      // Then, update emotions on each part of the head
+      // Turn off auto-updates of all the devices
       mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
 
-      // The static_cast's are neccessary here because they provide a way for the `update` functions of each body part to have an input based on Enumerated States, while still be separated in implementation      
+      // Then, update emotions on each part of the head
+      // The static_cast's are neccessary here because they provide a way for the `update` functions of 
+      // each body part to have an input based on Enumerated States, while still being separated in implementation     
+
       // Eyes
       HeadEyeLeft.updateEyeLeftDisplay(mx, static_cast<int>(currentEmote)); 
       HeadEyeRight.updateEyeRightDisplay(mx, static_cast<int>(currentEmote));
+
       // Mouth
       // HeadMouthLeft.updateMouthLeftDisplay(mx, static_cast<int>(currentEmote));
       // HeadMouthRight.updateMouthRightDisplay(mx, static_cast<int>(currentEmote));
+
       // Nose
+
       mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
       // Display each bitmap on each 8x8 matrix of each part of the face
     }
