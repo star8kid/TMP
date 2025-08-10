@@ -3,7 +3,8 @@
 #include <Mouth.h>
 
 #include <Animation.h>
-#include <WinkAnimation.h>
+#include <BlinkIdleAnimation.cpp>
+
 
 
 // Turn on debug statements to the serial output
@@ -129,9 +130,20 @@ class Head {
     // NoseRight HeadNoseRight; <--- Do This Later
 };
 
+// Test Variables
+const uint8_t test2DArr[4][8] = {
+  {3,3,3,5,2,3,4,5},
+  {1,2,1,2,2,3,4,5},
+  {5,5,5,5,2,3,4,5},
+  {20,20,20,20,2,3,4,5}
+};
+// const uint8_t* test2DPtr = test2DArr;
+const uint8_t* test2DPtr = &test2DArr[0][0];
 // Create the Head Instance
-
 Head protogenHead;
+
+// Create Animation / Emote Instances (From Animation Library)
+BlinkIdleAnimation idleAniBlink;
 
 
 // Function pulled from Test Example
@@ -163,20 +175,39 @@ void setup() {
 #if  DEBUG
   Serial.begin(57600);
 #endif
-  PRINTS("\n The Mint Project");
+  PRINTS("\nThe Mint Project\n");
 
   if (!mx.begin())
-    PRINTS("\nMD_MAX72XX initialization failed");
+    PRINTS("\nMD_MAX72XX initialization failed\n");
 
 delay(DELAYTIME);
 
   mx.clear();
 
-  protogenHead.setHeadEmotion(Head::Emotions::Idle);
-  protogenHead.updateHeadDisplay();
+  // protogenHead.setHeadEmotion(Head::Emotions::Idle);
+  // protogenHead.updateHeadDisplay();
+  
+  Serial.print(idleAniBlink.getFrameRate());
+  Serial.println("\n");
+  Serial.print(double(60 / idleAniBlink.getFrameRate()) * 1000);
+  Serial.println("\n");
+  Serial.print(double(1000 / idleAniBlink.getFrameRate()));
+  Serial.println("\n");
+  // double(60 / getFrameRate()) * 1000
+  // auto res = idleAniBlink.getFrame((*test2DArr)[8], 2);
+  // Serial.print(*res);
+  // Serial.print(idleAniBlink.getFrame((*test2DArr)[8], 0))
+  // idleAniBlink.getFrame(const uint8_t *(*frameSeqPtr)[8], int frameNum)
+  // Serial.print()
+  // TODO: Define a test sequence above to see if the getFrame function is working as expected
+  Serial.print("Now Playing: Wink Animation");
+  idleAniBlink.setFrameRate(8);
 }
 
 void loop() {
+  idleAniBlink.playAnimation(mx, 0);
+
+  
   // put your main code here, to run repeatedly:
 }
 

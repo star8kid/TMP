@@ -47,6 +47,7 @@
 //         }
 
 
+// Previous Derived Class from last year (July 2024)
 
 #include "Animation.h"
 
@@ -89,20 +90,20 @@ class WinkAnimation : public Animation{
             // TO-DO: Utilize the variable below to track the current frame being displayed (with the getFrame function)
             uint8_t* currentFramePtr;
             
-            mxSPI.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
             while(frameCounter < frameSequenceSize){
                 currentFrameTime = millis();
                 // Compares the difference between the current time and the time 
                 // the animation started against multiples (based on frame count) of "next frame" intervals 
                 if(currentFrameTime - startFrameTime >= nextFrameInterval * frameCounter){
+                    mxSPI.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
                     // Increment frame counter
                     frameCounter++;
                     // Draw the new frame, now that the counter has incremented
                     mxSPI.setBuffer(((inputDeviceIndex + 1) * COL_SIZE) - 1, COL_SIZE, getFrame(frameCounter - 1));
+                    mxSPI.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
                 }
             }
 
-            mxSPI.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
         }
 
     private:
