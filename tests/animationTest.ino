@@ -5,34 +5,6 @@
 #include <Animation.h>
 #include <BlinkIdleAnimation.cpp>
 
-
-
-// Turn on debug statements to the serial output
-#define  DEBUG  1
-
-#if  DEBUG
-#define PRINT(s, x) { Serial.print(F(s)); Serial.print(x); }
-#define PRINTS(x) Serial.print(F(x))
-#define PRINTD(x) Serial.println(x, DEC)
-
-#else
-#define PRINT(s, x)
-#define PRINTS(x)
-#define PRINTD(x)
-
-#endif
-
-// List of each Matrix component for the face
-
-#define MATRIX_EYE_LEFT = 0;
-#define MATRIX_EYE_RIGHT = 1;
-#define MATRIX_MOUTH_LEFT = 2;
-#define MATRIX_MOUTH_MIDDLE = 3;
-#define MATRIX_MOUTH_RIGHT = 4;
-#define MATRIX_NOSE_LEFT = 5;
-#define MATRIX_NOSE_RIGHT = 6;
-
-
 // Define all the pins:
 #define CLK_PIN   13  // or SCK
 #define DATA_PIN  11  // or MOSI
@@ -171,12 +143,6 @@ void scrollText(const char *p)
 
 void setup() {
   // put your setup code here, to run once:
-
-#if  DEBUG
-  Serial.begin(57600);
-#endif
-  PRINTS("\nThe Mint Project\n");
-
   if (!mx.begin())
     PRINTS("\nMD_MAX72XX initialization failed\n");
 

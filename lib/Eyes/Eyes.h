@@ -1,14 +1,15 @@
 #ifndef Eyes_h
 #define Eyes_h
 
-#include "Arduino.h"
 #include <MD_MAX72xx.h>
+// #include "Arduino.h"
 
 class EyeLeft{
   public: 
-  
+    // Update Function
     void updateEyeLeftDisplay(MD_MAX72XX &mxSPI, int inputInt);
-    void blinkEyeLeft(MD_MAX72XX &mxSPI);
+    // Animation Functions (WIP)
+    // void blinkEyeLeft(MD_MAX72XX &mxSPI);
 
   private:
 
@@ -87,26 +88,41 @@ class EyeLeft{
     0b00111110,
     0b00111110
   };
-  // uint8_t SadDisplayTwo[COL_SIZE] = 
-  // {
-  //   0b01111100,
-  //   0b01111100,
-  //   0b00111110,
-  //   0b00000111,
-  //   0b00000011,
-  //   0b00000001,
-  //   0b00000000,
-  //   0b00000000
-  // };
+
+  uint8_t AngryDisplayOne[COL_SIZE] =
+  {
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00000000
+  };
+
+  uint8_t AngryDisplayTwo[COL_SIZE] =
+  {
+    0b00000000,
+    0b00000000,
+    0b00011110,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000
+  };
 
   constexpr static uint8_t partMaxDevices = 2; 
-  constexpr static uint8_t partFirstDeviceIndex = 0; 
+  constexpr static uint8_t partFirstDeviceIndex = 1; 
 };
 
 class EyeRight{
   public:
+    // Update Function
     void updateEyeRightDisplay(MD_MAX72XX &mxSPI, int inputInt);
-    void blinkEyeRight(MD_MAX72XX &mxSPI);
+    // Animation Functions (WIP)
+    // void blinkEyeRight(MD_MAX72XX &mxSPI);
   private:
     uint8_t IdleDisplayOne[COL_SIZE] = 
     {
@@ -178,19 +194,33 @@ class EyeRight{
     0b00111110,
     0b00111110
   };
-  // uint8_t SadDisplayTwo[COL_SIZE] = 
-  // {
-  //   0b01111100,
-  //   0b01111100,
-  //   0b00111110,
-  //   0b00000110,
-  //   0b00000000,
-  //   0b00000000,
-  //   0b00000000,
-  //   0b00000000
-  // };
+
+  uint8_t AngryDisplayOne[COL_SIZE] =
+  {
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011110,
+    0b00000000,
+    0b00000000
+  };
+
+  uint8_t AngryDisplayTwo[COL_SIZE] =
+  {
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00000000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000
+  };
+
   constexpr static uint8_t partMaxDevices = 2; 
-  constexpr static uint8_t partFirstDeviceIndex = 2; 
+  constexpr static uint8_t partFirstDeviceIndex = 3; 
 };
 
 #endif
